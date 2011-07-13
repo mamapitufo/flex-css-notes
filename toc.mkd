@@ -1,0 +1,23 @@
+# Flex3 vs. Flex4, Advanced CSS
+
+## Available selectors in Flex3
+
+1. Type selectors. They are applied to every instance of the class and any
+   subclasses.
+
+```css
+Button { color: black; }
+```
+
+2. Class selectors. They are applied to every `IStyleClient` that uses the
+   selector in its `styleName` property. Even though you can use a type selector
+   with a class selector, they are ignored in Flex3.
+
+```css
+.h1 { font-size: 24px; }
+
+/* The style is applied to every IStyleClient, not only Label instances */
+Label.important { color: red; }
+```
+
+## Advanced CSS in Flex4
