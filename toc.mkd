@@ -2,39 +2,39 @@
 
 ## Available selectors in Flex3
 
-1. Type selectors. They are applied to every instance of the class and any
-   subclasses.
+1.  Type selectors. They are applied to every instance of the class and any
+    subclasses.
 
-```css
-Button {
-    color: #3C3C3C;
-}
-```
+    ```css
+    Button {
+        color: #3C3C3C;
+    }
+    ```
 
-2. Class selectors. They are applied to every `IStyleClient` that uses the
-   selector in its `styleName` property. Even though you can use a type selector
-   with a class selector, they are ignored in Flex3.
+2.  Class selectors. They are applied to every `IStyleClient` that uses the
+    selector in its `styleName` property. Even though you can use a type
+    selector with a class selector, they are ignored in Flex3.
 
-```css
-.h1 {
-    font-size: 24px;
-}
+    ```css
+    .h1 {
+        font-size: 24px;
+    }
 
-/* The style is applied to every IStyleClient, not only Label instances */
-Label.important {
-    color: red;
-}
-```
+    /* The style is applied to every IStyleClient, not only Label instances */
+    Label.important {
+        color: red;
+    }
+    ```
 
-3. `global` selector. This is a special type selector that is applied to every
-   `IStyleClient` in the application.
+3.  `global` selector. This is a special type selector that is applied to
+    every `IStyleClient` in the application.
 
-```css
-global {
-    color: black;
-    font-size: 12px;
-}
-```
+    ```css
+    global {
+        color: black;
+        font-size: 12px;
+    }
+    ```
 
 ## Advanced CSS in Flex4
 
@@ -42,24 +42,24 @@ Flex4 introduces some extensions to the existing CSS selectors. To solve the
 problem of type selectors with both `mx` and `spark` components that have the
 same name, Spark also introduced namespaces in CSS.
 
-1. Namespaces. When the `mxmlc` compiler processes the style definitions it
-   uses the namespace to generate type selectors with the fully qualified
-   class name.
+1.  Namespaces. When the `mxmlc` compiler processes the style definitions it
+    uses the namespace to generate type selectors with the fully qualified
+    class name.
 
-```css
-@namespace s "library://ns.adobe.com/flex/spark";
-@namespace mx "library://ns.adobe.com/flex/mx";
+    ```css
+    @namespace s "library://ns.adobe.com/flex/spark";
+    @namespace mx "library://ns.adobe.com/flex/mx";
 
-/* This will become the type selector "spark.components.Button" */
-s|Button {
-    font-weight: bold;
-}
+    /* This will become the type selector "spark.components.Button" */
+    s|Button {
+        font-weight: bold;
+    }
 
-/* This will become the type selector "mx.controls.Button" */
-mx|Button {
-    font-weight: bold;
-}
-```
+    /* This will become the type selector "mx.controls.Button" */
+    mx|Button {
+        font-weight: bold;
+    }
+    ```
 
 # Precedence order
 
@@ -67,6 +67,3 @@ mx|Button {
 2. Type selectors.
 3. Class selectors.
 4. Inline styles.
-```xml
-<s:Button label="Submit" color="blue"/>
-```
