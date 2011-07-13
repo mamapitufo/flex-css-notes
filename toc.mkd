@@ -20,8 +20,11 @@
         font-size: 24px;
     }
 
-    /* The style is applied to every IStyleClient, not only Label instances */
-    Label.important {
+    /*
+    The style is applied to every IStyleClient that uses the "error"
+    styleName, not only Label instances.
+    */
+    Label.error {
         color: red;
     }
     ```
