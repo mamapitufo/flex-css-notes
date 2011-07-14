@@ -90,6 +90,42 @@ same name, Spark also introduced namespaces in CSS.
     }
     ```
 
+3.  ID selectors. These declarations will only be applied to the components
+    that have an 'id' property that is the same as the selector.
+
+    ```css
+    #submitButton {
+        right: 0;
+        bottom: 0;
+    }
+    ```
+
+4.  Descendant selectors. These selectors will match components depending on
+    their relationship in the display list.
+
+    ```css
+    s|Button s|Label {
+        text-decoration: bold;
+    }
+    ```
+
+5.  Pseudo selectors, used to apply styles to a component when they are in a
+    specified state.
+
+    ```css
+    s|Button {
+        color: #C9C9C9;
+    }
+
+    s|Button:upAndSelected {
+        color: white;
+    }
+
+    s|Button:down {
+        color: #3C3C3C;
+    }
+    ```
+
 # Precedence order
 
 1. `global` selector.
