@@ -61,6 +61,35 @@ same name, Spark also introduced namespaces in CSS.
     }
     ```
 
+2.  Class selectors. In Flex4, class selectors can be used to qualify a type
+    selector.
+
+    ```css
+    s|Button.custom {
+        skin-class: ClassReference("com.example.custom.skin.ButtonSkin;
+    }
+    ```
+
+    In Flex4 you can also specify more than one class selector in the
+    `styleName` property of a component. All of the style declarations
+    specified will be applied to the component following selector specificity.
+
+    ```html
+    <s:Button label="Submit" styleName="big custom"/>
+    ```
+
+    Finally, you can use a class selector to qualify another class selector.
+    The resulting style declaration will be applied to the component only when
+    all of the class selectors are used in the `styleName` property.
+
+    ````css
+    /* This declaration will only be applied to components specifying *both* 'red' and 'big' in their 'styleName' property */
+    .red.big {
+        color: red;
+        font-size: 18;
+    }
+    ```
+
 # Precedence order
 
 1. `global` selector.
