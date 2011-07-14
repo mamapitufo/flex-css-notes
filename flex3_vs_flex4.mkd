@@ -126,9 +126,18 @@ same name, Spark also introduced namespaces in CSS.
     }
     ```
 
-# Precedence order
+### Style precedence order and selector specificity
 
-1. `global` selector.
-2. Type selectors.
-3. Class selectors.
-4. Inline styles.
+The specificity of a selector is calculated by adding the scores of the
+different conditions in a selector, following these rules:
+
+* global selectors add nothing.
+* non-global selectors start with 1.
+* ID selectors add 100.
+* each class selector adds 10.
+* pseudo-selectors add 10.
+
+A selector with higher score overrides the other selecors. If more than one
+selector has the same specificity score, the last one declared wins.
+
+Inline style assignment wins over CSS selectors.
