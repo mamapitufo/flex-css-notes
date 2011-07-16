@@ -1,0 +1,18 @@
+# Styles in Flex 4
+
+## API
+
+* `ISimpleStyleClient`: minimum requirements to participate in the style
+  subsystem.
+    * `styleName` property.
+    * `styleChanged(styleProp:String)` method.
+
+* `IStyleClient`: additional requirements when a component stores style values
+  locally.
+    * `className` property. The name of the component class.
+    * `inheritingStyles` and `nonInheritingStyles` properties. Used by
+      `getStyle()` to search the style chains.
+
+## How does it work?
+
+## Performance considerations
