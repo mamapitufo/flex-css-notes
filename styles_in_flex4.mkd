@@ -2,16 +2,51 @@
 
 ## API
 
-* `ISimpleStyleClient`: minimum requirements to participate in the style
-  subsystem.
-    * `styleName` property.
-    * `styleChanged(styleProp:String)` method.
+*   `ISimpleStyleClient`: minimum requirements to participate in the style
+    subsystem.
 
-* `IStyleClient`: additional requirements when a component stores style values
-  locally.
-    * `className` property. The name of the component class.
-    * `inheritingStyles` and `nonInheritingStyles` properties. Used by
-      `getStyle()` to search the style chains.
+    ```actionscript
+    public interface ISimpleStyleClient
+    {
+        function get styleName():Object
+        function set styleName(value:Object):void
+
+        function styleChanged(styleProp:String):void;
+    }
+    ```
+
+*   `IStyleClient`: additional requirements when a component stores style values
+    locally.
+
+    ```actionscript
+    public interface IStyleClient extends ISimpleStyleClient
+    {
+        // Name of the class of the component instance
+        function get className():String;
+
+        // Used by getStyle() to search the style chain.
+        // Used to determine whether the style chain has been initialized or not.
+        function get inheritingStyles():Object;
+        function set inheritingStyles(value:Object):void;
+        function get nonInheritingStyles():Object;
+        function set nonInheritingStyles(value:Object):void;
+
+        // Holds the inline styles
+        function get styleDeclaration():CSSStyleDeclaration;
+        function set styleDeclaration(value:CSSStyleDeclaration):void;
+
+        // Queries and modifies the style chain
+        function getStyle(styleProp:String):*;
+        function setStyle(styleProp:String, newValue:*):void
+        function clearStyle(styleProp:String):void;
+
+        function getClassStyleDeclarations():Array; // of CSSStyleDeclaration;
+        function notifyStyleChangeInChildren(styleProp:String, recursive:Boolean):void;
+
+        function regenerateStyleCache(recursive:Boolean):void;
+        function registerEffects(effects:Array /* of String */):void
+    }
+    ```
 
 ## How does it work?
 
