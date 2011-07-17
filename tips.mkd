@@ -1,0 +1,39 @@
+# Tips
+
+## The cost of 'regenerateStyleCache()'
+
+*   Setting `UIComponent#styleName` calls `regenerateStyleCache()` recursively
+    for all children.
+*   Calling `CSSStyleDeclaration#setStyle()` may regenerate the style chain
+    for every component.
+*   Adding a child via `UIComponent#addChild()` calls `regenerateStyleCache()`
+    recursively for all children of the added component.
+
+## 'getStyle()' calls are cheap
+
+*   Calling `getStyle('foo')` is just a couple of object property lookup, so
+    generally you don't want to cache them. Styles are looked up in
+    `UIComponent#inheritingStyles` and `UIComponent#nonInheritingStyles`.
+
+*   There is an initial cost of building the inheriting styles cache for each
+    `IStyleManager`.
+
+## Checking whether a style has been set or not.
+
+*   `getStyle('foo')` returns `undefined` if the `foo` style has not been set
+    anywhere in the style lookup chain.
+
+    ```actionscript
+    if (getStyle('color') === undefined)
+    {
+        // 'color' style was not set
+    }
+    else
+    {
+        // a value of 0 is valid for colours, so a boolean check won't work.
+    }
+    ```
+
+## Pop-up inheritance chain
+
+*   A pop-up inheritance chain starts at `Application` instead of `global`.

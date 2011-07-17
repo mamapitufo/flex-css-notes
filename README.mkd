@@ -6,3 +6,5 @@ Some documentation and notes used for a talk about Flex 4 CSS.
     New additions to the style framework in Flex 4.
 2.  [Styles in Flex 4](https://github.com/mamapitufo/flex-css-notes/blob/master/styles_in_flex4.mkd#readme):
     Style framework API, the gory details and performance considerations.
+3.  [Tips](https://github.com/mamapitufo/flex-css-notes/blob/master/tips.mkd#readme):
+    Tips and gotchas related to styles in Flex.
