@@ -1,0 +1,22 @@
+. StyleManager#setStyleDeclaration(): how does it work? Is this called by the
+  generated code?
+
+. note about how the idea in Flex4, sort of, is to move away from styles.
+
+. how do inheritable styles work? are they only applied to children of
+  *containers*?
+    - "global" selector applies style rules to *all* components, even when the
+      rules are not inheritable.
+    - type selectors are inherited in the class definition hierarchy, always.
+
+. if there are many class selectors in styleName, they are applied in the
+  order they have in styleName, not at declaration time. really?
+
+. how do descendant selectors work? how is the matching done?
+
+. modules, factory, defaultFactory: how do they work? difference between
+-compiler.defaults-css-files and including an external stylesheet via
+<fx:Style source="foo"/>
+
+. what happens when a component is parented? --alternatives--
+  when styleName is changed?
