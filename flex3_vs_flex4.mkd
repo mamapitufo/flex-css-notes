@@ -128,6 +128,18 @@ same name, Spark also introduced namespaces in CSS.
 
 ### Style precedence order and selector specificity
 
+Style declarations take precedence over other declarations with the same
+specificity in the following order:
+
+1. Calls to setStyle(styleProp, value) in the component
+2. Inline styles
+3. Class selectors (used in the `styleName` property)
+4. Type selectors (most immediate ancestor takes precedence)
+5. Ancestor class' type selectors
+6. Display object hierarchy (for inheriting styles only)
+7. Styles declared in `defaults.css`
+8. `global` selector
+
 The specificity of a selector is calculated by adding the scores of the
 different conditions in a selector, following these rules:
 
@@ -137,7 +149,12 @@ different conditions in a selector, following these rules:
 * each class selector adds 10.
 * pseudo-selectors add 10.
 
-A selector with higher score overrides the other selecors. If more than one
+A selector with higher score overrides the other selectors. If more than one
 selector has the same specificity score, the last one declared wins.
 
-Inline style assignment wins over CSS selectors.
+Aditionally, where the CSS declaration was made has a precedence order:
+
+1. Styles declared inside a `<fx:Style/>` tag.
+2. Styles declared in a file included with `<fx:Style source="foo.css"/>`
+3. Styles declared in a file included with the compiler directive
+`-compiler.defaults-css-files`.
