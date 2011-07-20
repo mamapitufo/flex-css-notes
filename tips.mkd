@@ -9,6 +9,13 @@
 *   Adding a child via `UIComponent#addChild()` calls `regenerateStyleCache()`
     recursively for all children of the added component.
 
+## Style bindings
+
+*   Binding to `getStyle('foo')` is not recommended because of the poor
+    performance of the binding mechanism. For complex skins you should set the
+    styles and properties in `UIComponent#styleChange(styleProp)` or the
+    `UIComponent` lifecycle methods.
+
 ## 'getStyle()' calls are cheap
 
 *   Calling `getStyle('foo')` is just a couple of object property lookup, so
@@ -18,7 +25,7 @@
 *   There is an initial cost of building the inheriting styles cache for each
     `IStyleManager`.
 
-## Checking whether a style has been set or not.
+## Checking whether a style has been set or not
 
 *   `getStyle('foo')` returns `undefined` if the `foo` style has not been set
     anywhere in the style lookup chain.
@@ -34,6 +41,3 @@
     }
     ```
 
-## Pop-up inheritance chain
-
-*   A pop-up inheritance chain starts at `Application` instead of `global`.
