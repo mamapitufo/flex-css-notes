@@ -128,6 +128,8 @@ same name, Spark also introduced namespaces in CSS.
 
 ### Style precedence order and selector specificity
 
+*TODO*: needs some clarification.
+
 Style declarations take precedence over other declarations with the same
 specificity in the following order:
 

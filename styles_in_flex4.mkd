@@ -2,6 +2,8 @@
 
 ## API
 
+*TODO*: This is incomplete and might not be worth it.
+
 *   `ISimpleStyleClient`: minimum requirements to participate in the style
     subsystem.
 
@@ -59,10 +61,6 @@ declaration uses Flex 4 advanced CSS features. It is true if:
 *   It has a subject (non-global selector.)
 *   It has at least a selector that is not a class selector (pseudo-selector or
     ID selector.)
-
-### CSSStyleDeclaration#defaultFactory vs. CSSStyleDeclaration#factory
-
-TODO
 
 ## Performance considerations
 
