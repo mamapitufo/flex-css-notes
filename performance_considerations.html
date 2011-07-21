@@ -1,0 +1,116 @@
+<h1>Performance considerations</h1>
+
+<h2>Reparenting vs. hiding components</h2>
+
+<p>Adding a child to a component regenerates the style cache for that component
+and all of its children.</p>
+
+<p>Prefer setting the <code>visible</code> and <code>includeInLayout</code> properties instead of
+adding and removing children.</p>
+
+<p>This should be considered when using <code>includeIn</code> and <code>excludeFrom</code> in states.</p>
+
+<h2>Style bindings</h2>
+
+<ul>
+<li>Binding to <code>getStyle('foo')</code> is not recommended because of the poor
+performance of the binding mechanism. For complex skins you should set the
+styles and properties in <code>UIComponent#styleChange(styleProp)</code> or the
+<code>UIComponent</code> lifecycle methods.</li>
+</ul>
+
+<h2>'getStyle()' calls are cheap</h2>
+
+<ul>
+<li><p>Calling <code>getStyle('foo')</code> is just a couple of object property lookups, so
+generally you don't want to cache them. Styles are looked up in
+<code>UIComponent#inheritingStyles</code> and <code>UIComponent#nonInheritingStyles</code>.</p></li>
+<li><p>There is an initial cost of building the inheriting styles cache for each
+<code>IStyleManager</code>.</p></li>
+</ul>
+
+<h2>Advanced styles</h2>
+
+<p>Advanced CSS matching mechanisms are more expensive, so there are checks in
+the framework to skip them.</p>
+
+<p>The <code>isAdvanced()</code> method in <code>CSSStyleDeclaration</code> determines whether or not
+the declaration uses Flex 4 advanced CSS features. It is true if:</p>
+
+<ul>
+<li>It has a selector with an ancestor (descendant selector.)</li>
+<li>It has a subject (non-global selector.)</li>
+<li>It has at least a selector that is not a class selector (pseudo-selector or
+ID selector.)</li>
+</ul>
+
+<h2>Selector matching</h2>
+
+<p>A <code>CSSSelector</code> will match a <code>IStyleClient</code> if:</p>
+
+<ul>
+<li><p>If the selector has an ancestor:</p>
+
+<ul>
+<li>First match all of its conditions and return <code>false</code> as soon as a
+condition does not match.</li>
+<li>Walk the component's display list hierarchy and try to find a
+matching parent for the ancestor condition. Return <code>false</code> if it
+does not find one. This is recursive, as the ancestor selector
+might have other selectors. This is potentially more expensive
+than matching the conditions.</li>
+</ul></li>
+<li><p>If the selector does not have an ancestor:</p>
+
+<ul>
+<li>Return <code>false</code> if the subject does not match.</li>
+<li>Try to match all of the conditions and return <code>false</code> as soon as a
+condition does not match. This is potentially more expensive than
+matching a single component to a type.</li>
+</ul></li>
+</ul>
+
+<p>CSS condition matching is done by
+<code>CSSCondition#matchesStyleClient(component)</code>. This matches if:</p>
+
+<ul>
+<li><p>The condition's kind is <code>CSSConditionKind.CLASS</code> and its value matches one
+of the values in the <code>styleName</code> property of the component. This is a
+simple string split on whitespace and match against the resulting
+elements.</p></li>
+<li><p>The condition's kind is <code>CSSConditionKind.ID</code> and the component ID matches
+its value.</p></li>
+<li><p>The condition's kind is <code>CSSConditionKind.PSEUDO</code> and its <code>currentState</code>
+matches the condition's value. For <code>SkinnableComponent</code> the skin state is
+used instead.</p></li>
+</ul>
+
+<p>Matching a component to a type is done by
+<code>StyleProtoChain#matchesCSSType(component, type)</code>. This matches if:</p>
+
+<ul>
+<li>The ordered list of types returned by
+<code>StyleProtoChain#getTypeHierarchy(component)</code> contains the CSS type. This
+method walks up the inheritance tree for the component until it hits a
+"stop class" (<code>UIComponent</code> is one of them). The style manager for the 
+component keeps a cache of previously looked up hierarchies.</li>
+</ul>
+
+<h1>Tips</h1>
+
+<h2>Checking whether or not a style has been set</h2>
+
+<ul>
+<li><p><code>getStyle('foo')</code> returns <code>undefined</code> if the <code>foo</code> style has not been set
+anywhere in the style lookup chain.</p>
+
+<pre><code>if (getStyle('color') === undefined)
+{
+    // 'color' style was not set
+}
+else
+{
+    // a value of 0 is valid for colours, so a boolean check won't work.
+}
+</code></pre></li>
+</ul>
