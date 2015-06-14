@@ -1,6 +1,6 @@
 # flex-ccs-notes
 
-Some documentation and notes used for a talk about Flex 4 CSS.
+Some documentation and notes used for a talk about CSS on Flex 4.
 
 1.  [Flex3 vs. Flex4, Advanced CSS](https://github.com/mamapitufo/flex-css-notes/blob/master/flex3_vs_flex4.mkd#readme): 
     New additions to the style framework in Flex 4.
